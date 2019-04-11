@@ -22,7 +22,7 @@ export default class SendMessage extends Component<SendMessageProps, SendMessage
     render() {
         return (
             <div className="chat-message clearfix">
-                <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows={3} value={this.state.content} onChange={this.handleMessage}></textarea>
+                <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows={3} value={this.state.content} onChange={this.handleMessage} onKeyDown={this.handleMessageValidation}></textarea>
                 <button onClick={this.sendMessage}>Send</button>
             </div>
         )
@@ -42,6 +42,12 @@ export default class SendMessage extends Component<SendMessageProps, SendMessage
             }
             this.props.sendMessage(newMessage)
             this.setState({ content: '' })
+        }
+    }
+
+    handleMessageValidation = (e: any) => {
+        if (e.key === 'Enter') {
+            this.sendMessage()
         }
     }
 }

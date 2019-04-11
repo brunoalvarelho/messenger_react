@@ -9,6 +9,9 @@ interface RecoverMessageProps {
 }
 
 export default class RecoverMessage extends Component<RecoverMessageProps> {
+
+    readonly scrollDiv = React.createRef<HTMLDivElement>()
+
     render() {
         return (
             < div className="chat-history" >
@@ -24,7 +27,16 @@ export default class RecoverMessage extends Component<RecoverMessageProps> {
                         </li>
                     })}
                 </ul>
+                <div ref={this.scrollDiv} />
             </div>
         )
+    }
+
+    componentDidUpdate() {
+        if (this.scrollDiv.current) {
+            this.scrollDiv.current.scrollIntoView({
+                behavior: 'auto'
+            })
+        }
     }
 }
